@@ -3,7 +3,7 @@
 
 This tool enables auto-completion of functions.
 
-If you don't input anything after parenthesis, it will automatically append -> void: and a pass statement after you *press tab*.
+If you don't input anything after parenthesis, it will automatically append -> void: and a pass statement after you ***press tab***.
 
 If you put a type after the parentheses, it will complete with that type instead.
 
