@@ -29,3 +29,5 @@ func new() -> String:
     pass
 ```
 <br>
+
+This works best if installed alongside Format on Save by rhg_dev in the AssetLib
