@@ -49,15 +49,26 @@ func _on_gui_input(event: InputEvent) -> void:
 
 		var parts: PackedStringArray = current_line.split(" ")
 
-		if parts[0] == "func" and "(" in current_line and ")" in current_line:
-			get_viewport().set_input_as_handled()
-
+		if parts[0] == "func":
 			var return_type: String = "void"
 			var func_part: String = current_line
+			var has_parens: bool = "(" in current_line and ")" in current_line
 
-			if parts.size() >= 3:
-				return_type = parts[-1]
-				func_part = current_line.substr(0, current_line.rfind(" " + return_type))
+			if parts.size() >= 2:
+				# Handle case with no parentheses
+				if not has_parens:
+					return_type = parts[-1]
+					# Remove the return type from the function part
+					func_part = current_line.substr(0, current_line.rfind(" " + return_type))
+					# Add empty parentheses
+					func_part += "()"
+				else:
+					# Original behavior for cases with parentheses
+					if parts.size() >= 3:
+						return_type = parts[-1]
+						func_part = current_line.substr(0, current_line.rfind(" " + return_type))
+
+			get_viewport().set_input_as_handled()
 
 			var indent: String = ""
 			for c in current_line:
