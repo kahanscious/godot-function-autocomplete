@@ -7,6 +7,8 @@ If you don't input anything after parenthesis, it will automatically append -> v
 
 If you put a type after the parentheses, it will complete with that type instead.
 
+Now able to be used without parentheses.
+
 ## Examples
 
 ```func new()```
@@ -29,5 +31,16 @@ func new() -> String:
     pass
 ```
 <br>
+
+```func new String```
+<br>
+turns into
+<br>
+```
+func new() -> String:
+    pass
+```
+<br>
+
 
 This works best if installed alongside Format on Save by rhg_dev in the AssetLib
