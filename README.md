@@ -1,46 +1,85 @@
+# gdscript function type auto-completion
 
-# Function Type Auto-Complete
+this is a simple godot 4 plugin that helps you write functions faster by auto-completing return types and adding default return values. just write your function and hit tab.
 
-This tool enables auto-completion of functions.
+check out [how to use it here](https://youtu.be/iefqy_YVMIM).
 
-If you don't input anything after parenthesis, it will automatically append -> void: and a pass statement after you ***press tab***.
+## what does it do?
 
-If you put a type after the parentheses, it will complete with that type instead.
+when you hit tab after writing a function, it:
+- adds the return type for you (-> void if you don't specify one)
+- puts in default return value
+- keeps your parameters and types intact
+- works with partial or complete function declarations
 
-Now able to be used without parentheses.
+## default return values
 
-## Examples
+here's what you get based on the return type:
 
-```func new()```
-<br>
-turns into
-<br>
+```gdscript
+# void functions get 'pass'
+func do_something() -> void:
+    pass
+
+# bools get 'false'
+func is_something() -> bool:
+    return false
+
+# numbers get zeros
+func count_stuff() -> int:
+    return 0
+func get_speed() -> float:
+    return 0.0
+
+# strings get empty quotes
+func get_name() -> String:
+    return ""
+
+# arrays and dictionaries start empty
+func get_items() -> Array:
+    return []
+func get_data() -> Dictionary:
+    return {}
+
+# objects get null
+func get_node() -> Node:
+    return null
 ```
-func new() -> void:
+
+## how it handles different ways of writing functions
+
+```gdscript
+# works with complete functions
+func do_math(value: int) -> int:
+    return 0
+
+# works with incomplete ones
+func not_done(value: int
+->
+func not_done(value: int) -> void:
+    pass
+
+# works with arrows
+func arrows_are_cool() ->
+->
+func arrows_are_cool() -> void:
+    pass
+
+# works without arrows
+func give_string String
+->
+func give_string() -> String:
+    return ""
+
+# keeps your parameters safe
+func move_stuff(pos: vector2, speed: float
+->
+func move_stuff(pos: vector2, speed: float) -> void:
     pass
 ```
-<br>
 
-
-```func new() String```
-<br>
-turns into
-<br>
-```
-func new() -> String:
-    pass
-```
-<br>
-
-```func new String```
-<br>
-turns into
-<br>
-```
-func new() -> String:
-    pass
-```
-<br>
-
-
-This works best if installed alongside Format on Save by rhg_dev in the AssetLib
+## need help?
+if something's not working, file an issue and provide the following:
+- what's going wrong
+- what version of godot you're using
+- what operating system you're on
