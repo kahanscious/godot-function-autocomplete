@@ -68,18 +68,15 @@ func _on_gui_input(event: InputEvent) -> void:
 				else:
 					break
 
-			# Get the initial function signature
 			var func_signature: String = current_line.substr(current_line.find(parts[1]))
 			var return_type: String = "void"
 
-			# Handle return types in different scenarios
 			if "->" in func_signature:
 				var parts_arrow = func_signature.split("->", true, 1)
 				return_type = parts_arrow[1].strip_edges()
 				if return_type == "":
 					return_type = "void"
 				func_signature = parts_arrow[0].strip_edges()
-				# Check for return type after complete parentheses
 			elif ")" in func_signature:
 				var after_paren = func_signature.split(")", true, 1)
 				if after_paren.size() > 1:
@@ -87,7 +84,6 @@ func _on_gui_input(event: InputEvent) -> void:
 					if potential_return != "":
 						return_type = potential_return
 						func_signature = after_paren[0] + ")"
-			# Check for return type without parentheses
 			elif parts.size() > 2:
 				var last_part = parts[-1]
 				if not "(" in last_part:
@@ -98,7 +94,6 @@ func _on_gui_input(event: InputEvent) -> void:
 					. strip_edges()
 					)
 
-			# Handle incomplete parameter declarations
 			if "(" in func_signature:
 				# Get the part inside parentheses
 				var param_start = func_signature.find("(")
@@ -112,7 +107,6 @@ func _on_gui_input(event: InputEvent) -> void:
 									"" if param_end == func_signature.length() else func_signature.substr(param_end)
 									)
 
-				# Keep the parameter type if it exists
 				if ":" in params:
 					params = params.strip_edges()
 
@@ -120,18 +114,15 @@ func _on_gui_input(event: InputEvent) -> void:
 			else:
 				func_signature += "()"
 
-			# Remove any trailing colon
 			if func_signature.ends_with(":"):
 				func_signature = func_signature.substr(0, func_signature.length() - 1)
 
 			var new_line: String = indent + "func " + func_signature + " -> " + return_type + ":"
 
-			# Generate appropriate body based on return type
 			var body_line: String
 			if return_type == "void":
 				body_line = indent + "\tpass"
 			else:
-				# Generate default return value based on type
 				var default_value = ""
 				match return_type:
 					"bool":
