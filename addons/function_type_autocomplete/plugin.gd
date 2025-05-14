@@ -138,7 +138,7 @@ func _on_gui_input(event: InputEvent) -> void:
 					"Dictionary":
 						default_value = "{}"
 					_:
-						default_value = "null"  # For all other types (objects, etc)
+						default_value = "null"
 				body_line = indent + "\treturn " + default_value
 
 			var current_scroll: int = current_editor.get_v_scroll()
